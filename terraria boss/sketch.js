@@ -12,13 +12,16 @@ let rotatee = 0;
 let rotateUpDown = -20;
 let textySize = 100;
 let colourly = 255;
+let colour1 = 0;
+let image1;
 function setup() {
+  image1 = load("assets/giphy.webp");
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
 }
 
 function draw() {
-  background('silver');
+  background(image1);
   backgroundTitle();
 
   drawTitleScreen();
@@ -27,11 +30,13 @@ function draw() {
 
 function drawTitleScreen() {
   push();
+  stroke(0);
   translate(width / 2, height / 4);
+  strokeWeight(5);
   textAlign(CENTER);
   textSize(textySize);
   rotate(rotateUpDown);
-  fill(colourly);
+  fill(colourly,200,70);
   text("GoldenTale", 0, 0);
   framee += 1;
   //print(framee);
@@ -62,10 +67,16 @@ function drawTitleScreen() {
         }
       }
     }
-    if (framee === 4) {
-      colourly -= 1;
-      if(colourly === 200){
-        colourly = 255;
+    if (framee === 2 || framee === 4) {
+      colour1 += 1;
+      if(colour1 <= 155){
+        colourly -= 1;
+      }
+      if(colour1 > 155){
+        colourly += 1;
+        if(colour1 === 310){
+          colour1 = 0;
+        }
       }
     }
     framee = 0;
@@ -75,6 +86,7 @@ function drawTitleScreen() {
 
 }
 function backgroundTitle() {
+  
   for (let i = 0; i < 7; i++) {
     push();
     noStroke();
