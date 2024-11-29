@@ -19,6 +19,9 @@ let textySize = 100;
 let colourly = 255;
 let colour1 = 0;
 let backGround;
+let x;
+let y;
+let b = 1;
 function setup() {
   backGround = loadImage("assets/giphy.webp");
   vyke = loadImage("assets/25b38ek4hu191.jpg");
@@ -38,6 +41,7 @@ function draw() {
   drawTitleScreen();
   pressStart();
   selectCharacter();
+  player();
 }
 
 
@@ -198,13 +202,14 @@ function pressStart() {
 
 function mousePressed() {
   if (characterSelect === true && mouseX > width / 4 - 125 && mouseX < width / 4 + 125 && mouseY > height / 2 - 250 && mouseY < height / 2 + 250) {
-    print("hello");
     characterSelect = false;
     startScreen = false;
     titleScreen = false;
     title = false;
     gameStart = true;
     backGround = loadImage("assets/cloudcastle.jpg");
+    
+    
   }
   if (titleScreen === true && mouseX > width / 2 - 200 && mouseX < width / 2 + 200 && mouseY > height / 2 - 100 && mouseY < height / 2 + 100) {
     characterSelect = true;
@@ -250,5 +255,40 @@ function selectCharacter() {
       pop();
     }
   }
+}
+
+function player(x,y){
+  if (gameStart === false){
+    x = width/2;
+    y = height/2;
+  }
+  if(gameStart === true){
+    print(x,y);
+    
+    circle(x,y,5);
+    if(keyIsPressed && key === 'a'){
+      print("hello");
+      if(x > 0){
+        print("hi");
+        // if(key === 'w'){
+        //   if(y < 0){
+        //     x -= 1;
+        //     y -= 1;
+        //   }
+        // }
+        // else if (key === 's'){
+        //   if(y > height){
+        //     x -= 1;
+        //     y += 1;
+        //   }
+        // }
+        // else{
+          x -= 1;
+        //}
+      } 
+    }
+    
+  }
+  
 }
 
