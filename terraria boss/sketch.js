@@ -24,6 +24,7 @@ let y = 0;
 let b = 1;
 let f = 1;
 let keysPressed = [];
+let spriteBroly = 0;
 function setup() {
   backGround = loadImage("assets/giphy.webp");
   vyke = loadImage("assets/25b38ek4hu191.jpg");
@@ -209,7 +210,7 @@ function mousePressed() {
     titleScreen = false;
     title = false;
     gameStart = true;
-    backGround = loadImage("assets/cloudcastle.jpg");
+    backGround = loadImage("assets/brolyBackground.webp");
 
 
   }
@@ -268,7 +269,7 @@ function player() {
       f = 0;
     }
 
-    circle(x, y, 5);
+    circle(x, y, 6);
     if (keyIsDown(65)) {
       keysPressed[0] = 1;
       x -= 4;
@@ -318,5 +319,16 @@ function player() {
       y += 1;
     }
     keysPressed[0] = 0;
+    playerPos = (x,y,6)
+  }
+}
+function boss(){
+  if(gameStart === true){
+    if(framee === 4){
+      for(let i = 0; i > 30; i++){
+        spriteBroly += 1;
+        
+      }
+    }
   }
 }
