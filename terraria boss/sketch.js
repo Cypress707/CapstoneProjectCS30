@@ -25,8 +25,13 @@ let b = 1;
 let f = 1;
 let keysPressed = [];
 let spriteBroly = 0;
+let broly = [];
 function setup() {
   backGround = loadImage("assets/giphy.webp");
+  for(let i = 0; i < 10; i++){
+    broly.push(loadImage("assets/brolyBasessj" + i + ".png"));
+    print(i);
+  }
   vyke = loadImage("assets/25b38ek4hu191.jpg");
   archer = loadImage("assets/archer.jpg");
   mage = loadImage("assets/mage.jpg_large");
@@ -45,6 +50,7 @@ function draw() {
   pressStart();
   selectCharacter();
   player();
+  boss();
 }
 
 
@@ -319,16 +325,21 @@ function player() {
       y += 1;
     }
     keysPressed[0] = 0;
-    playerPos = (x,y,6)
+    playerPos = (x, y, 6);
   }
+
 }
-function boss(){
-  if(gameStart === true){
-    if(framee === 4){
-      for(let i = 0; i > 30; i++){
-        spriteBroly += 1;
-        
-      }
+function boss() {
+  if (gameStart === true) {
+    image(broly[spriteBroly],width/2,height/2);
+    //print(framee);
+    if (framee > 20) {
+      //print("hello");
+      spriteBroly += 1;
+      framee = 0;
+      print(spriteBroly);
+
     }
+    framee += 1;
   }
 }
