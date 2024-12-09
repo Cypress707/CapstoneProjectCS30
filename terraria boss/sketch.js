@@ -26,9 +26,16 @@ let f = 1;
 let keysPressed = [];
 let spriteBroly = 0;
 let broly = [];
+let bossSpawn = true;
+let startAttack0 = false;
+let bossAttack = 0;
+let brolyX = 0;
+let brolyY = 0;
+let brolyD = 0;
+let attackNumber = 0;
 function setup() {
   backGround = loadImage("assets/giphy.webp");
-  for(let i = 0; i < 10; i++){
+  for (let i = 0; i < 11; i++) {
     broly.push(loadImage("assets/brolyBasessj" + i + ".png"));
     print(i);
   }
@@ -330,14 +337,66 @@ function player() {
 
 }
 function boss() {
+  if (startAttack0 === false) {
+    brolyX = width / 2;
+    brolyY = height / 2;
+  }
   if (gameStart === true) {
-    image(broly[spriteBroly],width/2,height/2);
+    print(framee);
+    image(broly[spriteBroly], brolyX, brolyY, 80, 120);
     //print(framee);
-    if (framee > 20) {
+    if (framee > 10 && bossSpawn === true) {
       //print("hello");
-      spriteBroly += 1;
-      framee = 0;
-      print(spriteBroly);
+
+      if (spriteBroly < 9 && bossSpawn === true) {
+        spriteBroly += 1;
+        framee = 0;
+        print(spriteBroly);
+      }
+      else {
+        bossSpawn = false;
+        startAttack0 = true;
+        framee = 0;
+      }
+
+    }
+    if (bossSpawn === false && startAttack0 === true) {
+      bossAttack = 1; //random(4);
+      bossAttack = Math.round(bossAttack);
+      if (bossAttack === 1) {
+        if (attackNumber === 0) {
+          if (framee === 10) {
+            spriteBroly = 0;
+          }
+          if (framee === 15) {
+            let rando = random(2);
+            if (rando > 1) {
+              brolyX = 0 + 200;
+              brolyD = 0;
+            }
+            else {
+              brolyX = width - 200;
+              brolyD = 1;
+            }
+            brolyY = 0 + 200;
+          }
+          if (framee === 25) {
+            if (brolyD === 0) {
+              spriteBroly = 9;
+            }
+            else {
+              spriteBroly = 10;
+              attackNumber = 1;
+            }
+
+          }
+        }
+        if(attackNumber === 1){
+          if(framee === 10){
+            
+          }
+        }
+      }
 
     }
     framee += 1;
