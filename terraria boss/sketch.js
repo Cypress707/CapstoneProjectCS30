@@ -40,15 +40,22 @@ let ballW = 100;
 let ballH = 100;
 let ballX = 50;
 let ballY = 50;
+let ballBlow = false;
+let brolyExplosion;
+let bombW = 0;
+let bombH = 0;
+let bombX;
+let bombY;
 function setup() {
   backGround = loadImage("assets/giphy.webp");
   for (let i = 0; i < 29; i++) {
     broly.push(loadImage("assets/brolyBasessj" + i + ".png"));
     print(i);
   }
-  for(let i = 0; i < 2; i++){
+  for (let i = 0; i < 2; i++) {
     brolyBomb.push(loadImage("assets/brolyBasessjbomb" + i + ".png"));
   }
+  brolyExplosion = loadImage("assets/brolyExplode2.png");
   vyke = loadImage("assets/25b38ek4hu191.jpg");
   archer = loadImage("assets/archer.jpg");
   mage = loadImage("assets/mage.jpg_large");
@@ -406,34 +413,61 @@ function boss() {
           }
         }
         if (attackNumber === 1) {
-          print(framee);
+          //print(framee);
           if (framee === 10 + spriteAttack && spriteAttack < 90) {
             print(spriteBroly);
             if (brolyD === 0) {
               spriteBroly = 11 + spriteAttack / 10;
               spriteAttack += 10;
-              if (spriteBroly === 19){
+              if (spriteBroly === 19) {
                 framee = 0;
               }
             }
             if (brolyD === 1) {
               spriteBroly = 20 + spriteAttack / 10;
               spriteAttack += 10;
-              if(spriteBroly === 28){
+              if (spriteBroly === 28) {
                 framee = 0;
               }
-              
+
             }
           }
-          if (spriteAttack === 90){
-            image(brolyBomb[bomb], brolyX + ballX, brolyY + ballY,ballW,ballH);
+          if (brolyD === 0) {
+            if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
+              image(brolyBomb[bomb], brolyX + ballX, brolyY + ballY, ballW, ballH);
+              ballX += 5;
+              ballY += 10;
+              ballW += 10;
+              ballH += 10;
+              spriteAttack += 10;
+            }
           }
-          if (framee === 10 + spriteAttack/10 && spriteAttack >= 90 && spriteAttack < 200){
-            ballX += 20;
-            ballY += 20;
-            ballW += 10;
-            ballH += 10;
-            spriteAttack += 10;
+          if (brolyD === 1) {
+            print("hello");
+            if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
+              image(brolyBomb[bomb], brolyX - ballX, brolyY + ballY, ballW, ballH);
+              print(ballX);
+              ballX += 15;
+              ballY += 10;
+              ballW += 10;
+              ballH += 10;
+              spriteAttack += 10;
+            }
+          }
+          if (ballY > height / 1.5) {
+            ballBlow = true;
+            if (framee === 10 + spriteAttack / 10 && ballBlow === true) {
+              
+              bombX = width / 2;
+              bombY = height - 50;
+              push();
+              imageMode(CENTER);
+              image(brolyExplosion, bombX, bombY, bombW, bombH);
+              pop();
+              bombW += 10;
+              bombH += 5;
+              spriteAttack += 10;
+            }
           }
         }
       }
