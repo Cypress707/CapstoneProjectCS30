@@ -46,15 +46,25 @@ let bombW = 0;
 let bombH = 0;
 let bombX;
 let bombY;
+let beam;
+let beamX = 75;
+let beamY = 50;
+let beamH = 200;
+let beamW = 10;
+let attack = true;
 function setup() {
   backGround = loadImage("assets/giphy.webp");
-  for (let i = 0; i < 41; i++) {
+  for (let i = 0; i < 50; i++) {
     broly.push(loadImage("assets/brolyBasessj" + i + ".png"));
     print(i);
   }
   for (let i = 0; i < 2; i++) {
     brolyBomb.push(loadImage("assets/brolyBasessjbomb" + i + ".png"));
   }
+  // for (let i = 0; i < 2; i++) {
+  //   beam.push(loadImage("assets/brolyBasessjBeam" + i + ".png"));
+  // }
+  beam = loadImage("assets/brolyBasessjBeam0.png");
   brolyExplosion = loadImage("assets/brolyExplode2.png");
   vyke = loadImage("assets/25b38ek4hu191.jpg");
   archer = loadImage("assets/archer.jpg");
@@ -87,8 +97,8 @@ function drawTitleScreen() {
     textAlign(CENTER);
     textSize(textySize);
     rotate(rotateUpDown);
-    fill(colourly, 200, 70);
-    text("GoldenTale", 0, 0);
+    fill(colourly, 255, 0);
+    text("Broly's Onslaught", 0, 0);
     framee += 1;
     //print(framee);
     if (framee === 4) {
@@ -226,7 +236,7 @@ function pressStart() {
     strokeWeight(5);
     textAlign(CENTER);
     textSize(30);
-    text("Press to Play", width / 2, height / 2 + 30)
+    text("Press to Play", width / 2, height / 2 + 30);
   }
 }
 
@@ -291,7 +301,7 @@ function selectCharacter() {
   }
 }
 
-function player() {
+function player(x, y) {
   if (gameStart === true) {
     if (f === 1) {
       //print(x, y);
@@ -355,7 +365,7 @@ function player() {
 
 }
 function boss() {
-  print(framee);
+
   if (startAttack0 === false) {
     brolyX = width / 2;
     brolyY = height / 2;
@@ -380,8 +390,12 @@ function boss() {
 
     }
     if (bossSpawn === false && startAttack0 === true) {
-      bossAttack = 2; //random(4);
-      bossAttack = Math.round(bossAttack);
+      if (attack === true) {
+        bossAttack = random(1,2);
+        bossAttack = Math.round(bossAttack);
+        attack = false;
+        print("hello");
+      }
       if (bossAttack === 1) {
         if (attackNumber === 0) {
           if (framee === 10) {
@@ -390,7 +404,7 @@ function boss() {
           if (framee === 15) {
             let rando = random(2);
             if (rando > 1) {
-              brolyX = 0 + 200;
+              brolyX = 200;
               brolyD = 0;
             }
             else {
@@ -433,7 +447,7 @@ function boss() {
           }
           if (brolyD === 0) {
             if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
-              print("hello");
+
               image(brolyBomb[bomb], brolyX + ballX, brolyY + ballY, ballW, ballH);
               ballX += 5;
               ballY += 10;
@@ -496,98 +510,122 @@ function boss() {
                 bombX = 0;
                 bombY = 0;
                 ballBlow = false;
+                attack = true;
               }
             }
           }
         }
       }
-      if (bossAttack === 2){
+      if (bossAttack === 2) {
         if (attackNumber === 0) {
           if (framee === 10) {
             spriteBroly = 0;
           }
           if (framee === 15) {
             let rando = random(2);
-            if (rando > 1) {
-              brolyX = 100;
-              brolyD = 0;
-            }
-            else {
-              brolyX = width - 100;
-              brolyD = 1;
-            }
-            brolyY = random(100,width - 100);
+            //if (rando > 1) {
+            brolyX = 100;
+            brolyD = 0;
+            //}
+            //else {
+
+            //}
+            brolyY = random(200, height - 200);
           }
-          if (framee === 25) {
-            if (brolyD === 0) {
-              spriteBroly = 9;
-              attackNumber = 1;
-              framee = 0;
-            }
-            else {
-              spriteBroly = 10;
-              attackNumber = 1;
-              framee = 0;
-            }
+          if (framee === 20) {
+            // if (brolyD === 0) {
+            spriteBroly = 9;
+            attackNumber = 1;
+            framee = 0;
+            //}
+            //else {
+            //   spriteBroly = 10;
+            //   attackNumber = 1;
+            //   framee = 0;
+            // }
 
           }
         }
-        if (attackNumber === 1){
-          if (framee === 10 + spriteAttack && spriteAttack < 60) {
-            if (brolyD === 0) {
-              spriteBroly = 35  + spriteAttack / 10;
-              spriteAttack += 10;
-              if (spriteBroly === 40) {
-                framee = 0;
-              }
+        if (attackNumber === 1) {
+          if (framee === 5 + spriteAttack && spriteAttack < 30) {
+            // if (brolyD === 0) {
+            spriteBroly = 35 + spriteAttack / 5;
+            spriteAttack += 5;
+            if (spriteBroly === 40) {
+              framee = 0;
             }
-            if (brolyD === 1) {
-              spriteBroly = 35 + spriteAttack / 10;
-              spriteAttack += 10;
-              if (spriteBroly === 40) {
-                framee = 0;
-              }
+            //}
+            // if (brolyD === 1) {
+            //   spriteBroly = 41 + spriteAttack / 10;
+            //   spriteAttack += 10;
+            //   if (spriteBroly === 46) {
+            //     framee = 0;
+            //   }
 
-            }
+            // }
 
           }
-          if (brolyD === 0) {
-            if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
-              print("hello");
-              image(brolyBomb[bomb], brolyX + ballX, brolyY + ballY, ballW, ballH);
-              ballX += 5;
-              ballY += 10;
-              ballW += 10;
-              ballH += 10;
-              if (bomb === 0) {
-                bomb = 1;
-              }
-              else {
-                bomb = 0;
-              }
-              spriteAttack += 10;
+          //if (brolyD === 0) {
+          if (framee === 5 + spriteAttack / 5 && spriteAttack >= 30 && ballBlow === false) {
+            image(beam, brolyX + beamX, brolyY - beamY, beamW, beamH);
+
+            beamW += 40;
+            beamH += 1;
+            beamY += 0.5;
+            spriteAttack += 5;
+            if (beamW > 2000) {
+              bossAttack = 0;
+              framee = 0;
+              spriteAttack = 0;
+              attackNumber = 0;
+              spriteBroly = 9;
+              startAttack0 = false;
+              bossSpawn = true;
+              beamY = 50;
+              beamH = 200;
+              beamW = 10;
+              ballBlow = false;
+              attack = true;
             }
+
+
           }
-          if (brolyD === 1) {
-            if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
-              image(brolyBomb[bomb], brolyX - ballX, brolyY + ballY, ballW, ballH);
-              //print(ballX);
-              ballX += 15;
-              ballY += 10;
-              ballW += 10;
-              ballH += 10;
-              if (bomb === 0) {
-                bomb = 1;
-              }
-              else {
-                bomb = 0;
-              }
-              spriteAttack += 10;
-            }
+          //}
+          // if (brolyD === 1) {
+          //   if (framee === 10 + spriteAttack / 10 && spriteAttack >= 60 && ballBlow === false) {
+          //     print("hello");
+          //     push();
+          //     angleMode(DEGREES);
+          //     rotate(180);
+          //     image(beam, brolyX - beamX, brolyY + beamY, beamW, beamH);
+          //     push();
+
+
+          //     beamW += 20;
+          //     beamH += 1;
+          //     beamY -= 0.5;
+
+          //     spriteAttack += 10;
+          //   }
+          // }
+        }
+      }
+      if (bossAttack === 3) {
+        if (attackNumber === 0) {
+          if (framee === 10) {
+            spriteBroly = 0;
+          }
+          if (framee === 15) {
+            brolyX = x;
+            brolyY = y + 200;
+          }
+          if (framee === 25) {
+            spriteBroly = 47;
+            attackNumber = 1;
+            framee = 0;
           }
         }
       }
-
     }
     framee += 1;
   }
