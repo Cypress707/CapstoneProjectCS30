@@ -54,11 +54,13 @@ let beamW = 10;
 let player;
 let attack = true;
 let goku = [];
-let spriteGoku = 0;
+let spriteGoku = 11;
+let gokuFrame = 0;
+let gokuDir = 1;
 function setup() {
-  player = new Player(x,y)
+  player = new Player(x,y);
   backGround = loadImage("assets/giphy.webp");
-  for (let i = 0; i < 5; i ++){
+  for (let i = 0; i < 18; i ++){
     goku.push(loadImage("assets/gokubase" + i + ".png"));
   }
   for (let i = 0; i < 50; i++) {
@@ -84,7 +86,6 @@ function setup() {
 }
 
 function draw() {
-  image(goku[gokuSprite],width/2,height/2)
   background(backGround);
   backgroundTitle();
 
@@ -93,7 +94,7 @@ function draw() {
   selectCharacter();
   //player();
   player.move();
-  boss();
+  player.boss();
   
 }
 
@@ -374,269 +375,269 @@ function selectCharacter() {
 //   }
 
 // }
-function boss() {
+// function boss() {
 
-  if (startAttack0 === false) {
-    brolyX = width / 4;
-    brolyY = height / 4;
-  }
-  if (gameStart === true) {
-    //print(framee);
-    image(broly[spriteBroly], brolyX, brolyY, 80, 120);
-    //print(framee);
-    if (framee > 10 && bossSpawn === true) {
-      //print("hello");
+//   if (startAttack0 === false) {
+//     brolyX = width / 4;
+//     brolyY = height / 4;
+//   }
+//   if (gameStart === true) {
+//     //print(framee);
+//     image(broly[spriteBroly], brolyX, brolyY, 80, 120);
+//     //print(framee);
+//     if (framee > 10 && bossSpawn === true) {
+//       //print("hello");
 
-      if (spriteBroly < 9 && bossSpawn === true) {
-        spriteBroly += 1;
-        framee = 0;
-        //print(spriteBroly);
-      }
-      else {
-        bossSpawn = false;
-        startAttack0 = true;
-        framee = 0;
-      }
+//       if (spriteBroly < 9 && bossSpawn === true) {
+//         spriteBroly += 1;
+//         framee = 0;
+//         //print(spriteBroly);
+//       }
+//       else {
+//         bossSpawn = false;
+//         startAttack0 = true;
+//         framee = 0;
+//       }
 
-    }
-    if (bossSpawn === false && startAttack0 === true) {
-      if (attack === true) {
-        bossAttack = random(1,2);
-        bossAttack = Math.round(bossAttack);
-        attack = false;
-        print("hello");
-      }
-      if (bossAttack === 1) {
-        if (attackNumber === 0) {
-          if (framee === 10) {
-            spriteBroly = 0;
-          }
-          if (framee === 15) {
-            let rando = random(2);
-            if (rando > 1) {
-              brolyX = 200;
-              brolyD = 0;
-            }
-            else {
-              brolyX = width - 200;
-              brolyD = 1;
-            }
-            brolyY = 0 + 200;
-          }
-          if (framee === 25) {
-            if (brolyD === 0) {
-              spriteBroly = 9;
-              attackNumber = 1;
-              framee = 0;
-            }
-            else {
-              spriteBroly = 10;
-              attackNumber = 1;
-              framee = 0;
-            }
+//     }
+//     if (bossSpawn === false && startAttack0 === true) {
+//       if (attack === true) {
+//         bossAttack = random(1,2);
+//         bossAttack = 3 //Math.round(bossAttack);
+//         attack = false;
+//         print("hello");
+//       }
+//       if (bossAttack === 1) {
+//         if (attackNumber === 0) {
+//           if (framee === 10) {
+//             spriteBroly = 0;
+//           }
+//           if (framee === 15) {
+//             let rando = random(2);
+//             if (rando > 1) {
+//               brolyX = 200;
+//               brolyD = 0;
+//             }
+//             else {
+//               brolyX = width - 200;
+//               brolyD = 1;
+//             }
+//             brolyY = 0 + 200;
+//           }
+//           if (framee === 25) {
+//             if (brolyD === 0) {
+//               spriteBroly = 9;
+//               attackNumber = 1;
+//               framee = 0;
+//             }
+//             else {
+//               spriteBroly = 10;
+//               attackNumber = 1;
+//               framee = 0;
+//             }
 
-          }
-        }
-        if (attackNumber === 1) {
-          if (framee === 10 + spriteAttack && spriteAttack < 90) {
-            if (brolyD === 0) {
-              spriteBroly = 11 + spriteAttack / 10;
-              spriteAttack += 10;
-              if (spriteBroly === 19) {
-                framee = 0;
-              }
-            }
-            if (brolyD === 1) {
-              spriteBroly = 20 + spriteAttack / 10;
-              spriteAttack += 10;
-              if (spriteBroly === 28) {
-                framee = 0;
-              }
+//           }
+//         }
+//         if (attackNumber === 1) {
+//           if (framee === 10 + spriteAttack && spriteAttack < 90) {
+//             if (brolyD === 0) {
+//               spriteBroly = 11 + spriteAttack / 10;
+//               spriteAttack += 10;
+//               if (spriteBroly === 19) {
+//                 framee = 0;
+//               }
+//             }
+//             if (brolyD === 1) {
+//               spriteBroly = 20 + spriteAttack / 10;
+//               spriteAttack += 10;
+//               if (spriteBroly === 28) {
+//                 framee = 0;
+//               }
 
-            }
-          }
-          if (brolyD === 0) {
-            if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
+//             }
+//           }
+//           if (brolyD === 0) {
+//             if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
 
-              image(brolyBomb[bomb], brolyX + ballX, brolyY + ballY, ballW, ballH);
-              ballX += 5;
-              ballY += 10;
-              ballW += 10;
-              ballH += 10;
-              if (bomb === 0) {
-                bomb = 1;
-              }
-              else {
-                bomb = 0;
-              }
-              spriteAttack += 10;
-            }
-          }
-          if (brolyD === 1) {
-            if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
-              image(brolyBomb[bomb], brolyX - ballX, brolyY + ballY, ballW, ballH);
-              //print(ballX);
-              ballX += 15;
-              ballY += 10;
-              ballW += 10;
-              ballH += 10;
-              if (bomb === 0) {
-                bomb = 1;
-              }
-              else {
-                bomb = 0;
-              }
-              spriteAttack += 10;
-            }
-          }
-          if (ballY > height / 1.5) {
-            ballBlow = true;
-            if (framee === 10 + spriteAttack / 10 && ballBlow === true) {
+//               image(brolyBomb[bomb], brolyX + ballX, brolyY + ballY, ballW, ballH);
+//               ballX += 5;
+//               ballY += 10;
+//               ballW += 10;
+//               ballH += 10;
+//               if (bomb === 0) {
+//                 bomb = 1;
+//               }
+//               else {
+//                 bomb = 0;
+//               }
+//               spriteAttack += 10;
+//             }
+//           }
+//           if (brolyD === 1) {
+//             if (framee === 10 + spriteAttack / 10 && spriteAttack >= 90 && ballBlow === false) {
+//               image(brolyBomb[bomb], brolyX - ballX, brolyY + ballY, ballW, ballH);
+//               //print(ballX);
+//               ballX += 15;
+//               ballY += 10;
+//               ballW += 10;
+//               ballH += 10;
+//               if (bomb === 0) {
+//                 bomb = 1;
+//               }
+//               else {
+//                 bomb = 0;
+//               }
+//               spriteAttack += 10;
+//             }
+//           }
+//           if (ballY > height / 1.5) {
+//             ballBlow = true;
+//             if (framee === 10 + spriteAttack / 10 && ballBlow === true) {
 
-              bombX = width / 2;
-              bombY = height - 50;
-              push();
-              imageMode(CENTER);
-              image(brolyExplosion, bombX, bombY, bombW, bombH);
-              pop();
-              bombW += 100;
-              bombH += 50;
-              spriteAttack += 10;
-              if (bombW > 3000) {
+//               bombX = width / 2;
+//               bombY = height - 50;
+//               push();
+//               imageMode(CENTER);
+//               image(brolyExplosion, bombX, bombY, bombW, bombH);
+//               pop();
+//               bombW += 100;
+//               bombH += 50;
+//               spriteAttack += 10;
+//               if (bombW > 3000) {
 
-                bossAttack = 0;
-                framee = 0;
-                spriteAttack = 0;
-                attackNumber = 0;
-                spriteBroly = 9;
-                startAttack0 = false;
-                bossSpawn = true;
-                ballX = 50;
-                ballY = 50;
-                ballW = 100;
-                ballH = 100;
-                bombW = 0;
-                bombH = 0;
-                bombX = 0;
-                bombY = 0;
-                ballBlow = false;
-                attack = true;
-              }
-            }
-          }
-        }
-      }
-      if (bossAttack === 2) {
-        if (attackNumber === 0) {
-          if (framee === 10) {
-            spriteBroly = 0;
-          }
-          if (framee === 15) {
-            let rando = random(2);
-            //if (rando > 1) {
-            brolyX = 100;
-            brolyD = 0;
-            //}
-            //else {
+//                 bossAttack = 0;
+//                 framee = 0;
+//                 spriteAttack = 0;
+//                 attackNumber = 0;
+//                 spriteBroly = 9;
+//                 startAttack0 = false;
+//                 bossSpawn = true;
+//                 ballX = 50;
+//                 ballY = 50;
+//                 ballW = 100;
+//                 ballH = 100;
+//                 bombW = 0;
+//                 bombH = 0;
+//                 bombX = 0;
+//                 bombY = 0;
+//                 ballBlow = false;
+//                 attack = true;
+//               }
+//             }
+//           }
+//         }
+//       }
+//       if (bossAttack === 2) {
+//         if (attackNumber === 0) {
+//           if (framee === 10) {
+//             spriteBroly = 0;
+//           }
+//           if (framee === 15) {
+//             let rando = random(2);
+//             //if (rando > 1) {
+//             brolyX = 100;
+//             brolyD = 0;
+//             //}
+//             //else {
 
-            //}
-            brolyY = random(0,height);
-          }
-          if (framee === 20) {
-            // if (brolyD === 0) {
-            spriteBroly = 9;
-            attackNumber = 1;
-            framee = 0;
-            //}
-            //else {
-            //   spriteBroly = 10;
-            //   attackNumber = 1;
-            //   framee = 0;
-            // }
+//             //}
+//             brolyY = random(0,height);
+//           }
+//           if (framee === 20) {
+//             // if (brolyD === 0) {
+//             spriteBroly = 9;
+//             attackNumber = 1;
+//             framee = 0;
+//             //}
+//             //else {
+//             //   spriteBroly = 10;
+//             //   attackNumber = 1;
+//             //   framee = 0;
+//             // }
 
-          }
-        }
-        if (attackNumber === 1) {
-          if (framee === 5 + spriteAttack && spriteAttack < 30) {
-            // if (brolyD === 0) {
-            spriteBroly = 35 + spriteAttack / 5;
-            spriteAttack += 5;
-            if (spriteBroly === 40) {
-              framee = 0;
-            }
-            //}
-            // if (brolyD === 1) {
-            //   spriteBroly = 41 + spriteAttack / 10;
-            //   spriteAttack += 10;
-            //   if (spriteBroly === 46) {
-            //     framee = 0;
-            //   }
+//           }
+//         }
+//         if (attackNumber === 1) {
+//           if (framee === 5 + spriteAttack && spriteAttack < 30) {
+//             // if (brolyD === 0) {
+//             spriteBroly = 35 + spriteAttack / 5;
+//             spriteAttack += 5;
+//             if (spriteBroly === 40) {
+//               framee = 0;
+//             }
+//             //}
+//             // if (brolyD === 1) {
+//             //   spriteBroly = 41 + spriteAttack / 10;
+//             //   spriteAttack += 10;
+//             //   if (spriteBroly === 46) {
+//             //     framee = 0;
+//             //   }
 
-            // }
+//             // }
 
-          }
-          //if (brolyD === 0) {
-          if (framee === 5 + spriteAttack / 5 && spriteAttack >= 30 && ballBlow === false) {
-            image(beam, brolyX + beamX, brolyY - beamY, beamW, beamH);
+//           }
+//           //if (brolyD === 0) {
+//           if (framee === 5 + spriteAttack / 5 && spriteAttack >= 30 && ballBlow === false) {
+//             image(beam, brolyX + beamX, brolyY - beamY, beamW, beamH);
 
-            beamW += 40;
-            beamH += 1;
-            beamY += 0.5;
-            spriteAttack += 5;
-            if (beamW > 2000) {
-              bossAttack = 0;
-              framee = 0;
-              spriteAttack = 0;
-              attackNumber = 0;
-              spriteBroly = 9;
-              startAttack0 = false;
-              bossSpawn = true;
-              beamY = 50;
-              beamH = 200;
-              beamW = 10;
-              ballBlow = false;
-              attack = true;
-            }
-
-
-          }
-          //}
-          // if (brolyD === 1) {
-          //   if (framee === 10 + spriteAttack / 10 && spriteAttack >= 60 && ballBlow === false) {
-          //     print("hello");
-          //     push();
-          //     angleMode(DEGREES);
-          //     rotate(180);
-          //     image(beam, brolyX - beamX, brolyY + beamY, beamW, beamH);
-          //     push();
+//             beamW += 40;
+//             beamH += 1;
+//             beamY += 0.5;
+//             spriteAttack += 5;
+//             if (beamW > 2000) {
+//               bossAttack = 0;
+//               framee = 0;
+//               spriteAttack = 0;
+//               attackNumber = 0;
+//               spriteBroly = 9;
+//               startAttack0 = false;
+//               bossSpawn = true;
+//               beamY = 50;
+//               beamH = 200;
+//               beamW = 10;
+//               ballBlow = false;
+//               attack = true;
+//             }
 
 
-          //     beamW += 20;
-          //     beamH += 1;
-          //     beamY -= 0.5;
+//           }
+//           //}
+//           // if (brolyD === 1) {
+//           //   if (framee === 10 + spriteAttack / 10 && spriteAttack >= 60 && ballBlow === false) {
+//           //     print("hello");
+//           //     push();
+//           //     angleMode(DEGREES);
+//           //     rotate(180);
+//           //     image(beam, brolyX - beamX, brolyY + beamY, beamW, beamH);
+//           //     push();
 
-          //     spriteAttack += 10;
-          //   }
-          // }
-        }
-      }
-      if (bossAttack === 3) {
-        if (attackNumber === 0) {
-          if (framee === 10) {
-            spriteBroly = 0;
-          }
-          if (framee === 15) {
-            brolyX = x;
-            brolyY = y + 200;
-          }
-          if (framee === 25) {
-            spriteBroly = 47;
-            attackNumber = 1;
-            framee = 0;
-          }
-        }
-      }
-    }
-    framee += 1;
-  }
-}
+
+//           //     beamW += 20;
+//           //     beamH += 1;
+//           //     beamY -= 0.5;
+
+//           //     spriteAttack += 10;
+//           //   }
+//           // }
+//         }
+//       }
+//       if (bossAttack === 3) {
+//         if (attackNumber === 0) {
+//           if (framee === 10) {
+//             spriteBroly = 0;
+//           }
+//           if (framee === 15) {
+//             brolyX = this.x;
+//             brolyY = this.y + 200;
+//           }
+//           if (framee === 25) {
+//             spriteBroly = 47;
+//             attackNumber = 1;
+//             framee = 0;
+//           }
+//         }
+//       }
+//     }
+//     framee += 1;
+//   }
+// }
