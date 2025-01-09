@@ -48,7 +48,7 @@ let bombX;
 let bombY;
 let beam;
 let beamX = 75;
-let beamY = 50;
+let beamY = 100;
 let beamH = 200;
 let beamW = 10;
 let player;
@@ -60,7 +60,7 @@ let gokuDir = 1;
 function setup() {
   player = new Player(x,y);
   backGround = loadImage("assets/giphy.webp");
-  for (let i = 0; i < 18; i ++){
+  for (let i = 0; i < 19; i ++){
     goku.push(loadImage("assets/gokubase" + i + ".png"));
   }
   for (let i = 0; i < 50; i++) {
