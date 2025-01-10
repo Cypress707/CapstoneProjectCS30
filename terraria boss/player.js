@@ -1,5 +1,5 @@
 class Player {
-  constructor(x, y,xh1,xh2,yh1,yh2) {
+  constructor(x, y, xh1, xh2, yh1, yh2) {
     this.x = x;
     this.y = y;
     this.xh1 = xh1;
@@ -8,7 +8,7 @@ class Player {
     this.yh2 = yh2;
   }
   move() {
-    print(this.xh1,this.xh2,this.yh1,this.yh2);
+    //print(this.xh1,this.xh2,this.yh1,this.yh2);
     push();
     imageMode(CENTER);
     if (gameStart === true) {
@@ -16,10 +16,6 @@ class Player {
         //print(x, y);
         this.x = width / 2;
         this.y = height / 2;
-        this.xh1 = this.x - 40;
-        this.xh2 = this.x + 40;
-        this.yh1 = this.y - 60;
-        this.yh2 = this.y + 60;
         f = 0;
       }
 
@@ -35,12 +31,15 @@ class Player {
       if (this.y < 0) {
         this.y = height - 100;
       }
+      push();
+      imageMode(CENTER);
       image(goku[spriteGoku], this.x, this.y, 80, 120);
+      pop();
       if (keyIsDown() === false) {
         if (gokuDir === 2) {
           spriteGoku = 18;
         }
-        if (gokuDir === 1){
+        if (gokuDir === 1) {
           spriteGoku = 11;
         }
       }
@@ -124,7 +123,6 @@ class Player {
         spriteGoku = 13;
         gokuDir = 1;
       }
-      pop();
       keysPressed[0] = 0;
     }
 
@@ -162,7 +160,6 @@ class Player {
           bossAttack = random(1, 3);
           bossAttack = Math.round(bossAttack);
           attack = false;
-          print("hello");
         }
         if (bossAttack === 1) {
           if (attackNumber === 0) {
@@ -296,8 +293,8 @@ class Player {
               ballH = 100;
               bombW = 0;
               bombH = 0;
-              bombX = 0;
-              bombY = 0;
+              bombX = 1000000;
+              bombY = 10000000;
               ballBlow = false;
               attack = true;
             }
@@ -368,7 +365,7 @@ class Player {
                 spriteBroly = 9;
                 startAttack0 = false;
                 bossSpawn = true;
-                beamY = 50;
+                beamY = 105;
                 beamH = 200;
                 beamW = 10;
                 ballBlow = false;
@@ -435,75 +432,32 @@ class Player {
       framee += 1;
     }
   }
-  hitbox() { 
-    if (this.xh1 < brolyX && this.xh2 > brolyX ** this.yh1 < brolyY && this.yh2 > brolyY){
-      print("hello");
+  hitbox() {
+    if (immFrames === false) {
+      if (this.x >= brolyX - 40 && this.x <= brolyX + 40 && this.y >= brolyY - 40 && this.y <= brolyY + 40) {
+        print("hiiii");
+        immFrames = true;
+        lives -= 1;
+      }
+      if (this.x >= bombX - bombW / 2 && this.x <= bombX + bombW / 2 && this.y >= bombY - bombH / 2) {
+        print("hiiii");
+        immFrames = true;
+        lives -= 1;
+      }
+    }
+    if (immFrames === true){
+      cooldown += 1;
+      print(cooldown);
+      if (cooldown === 150){
+        immFrames = false;
+        cooldown = 0;
+      }
+    }
+    if (lives === 0){
+      print("you died")
     }
   }
 }
 
 
 
-// function player(x, y) {
-//     if (gameStart === true) {
-//         if (f === 1) {
-//             //print(x, y);
-//             x = width / 2;
-//             y = height / 2;
-//             f = 0;
-//         }
-
-//         circle(x, y, 6);
-//         if (keyIsDown(65)) {
-//             keysPressed[0] = 1;
-//             x -= 4;
-//         }
-//         if (keyIsDown(87) && keysPressed[0] === 1) {
-//             x -= 1;
-//             y -= 1;
-//         }
-//         else if (keyIsDown(83) && keysPressed[0] === 1) {
-//             x -= 1;
-//             y += 1;
-//         }
-//         if (keyIsDown(68)) {
-//             keysPressed[0] = 4;
-//             x += 4;
-//         }
-//         if (keyIsDown(87) && keysPressed[0] === 4) {
-//             x += 1;
-//             y -= 1;
-//         }
-//         else if (keyIsDown(83) && keysPressed[0] === 4) {
-//             x += 1;
-//             y += 1;
-//         }
-//         if (keyIsDown(87)) {
-//             keysPressed[0] = 2;
-//             y -= 4;
-//         }
-//         if (keyIsDown(65) && keysPressed[0] === 2) {
-//             x -= 1;
-//             y -= 1;
-//         }
-//         else if (keyIsDown(68) && keysPressed[0] === 2) {
-//             x += 1;
-//             y -= 1;
-//         }
-//         if (keyIsDown(83)) {
-//             keysPressed[0] = 3;
-//             y += 4;
-//         }
-//         if (keyIsDown(65) && keysPressed[0] === 3) {
-//             x -= 1;
-//             y += 1;
-//         }
-//         else if (keyIsDown(68) && keysPressed[0] === 3) {
-//             x += 1;
-//             y += 1;
-//         }
-//         keysPressed[0] = 0;
-//         playerPos = (x, y, 6);
-//     }
-
-// }
