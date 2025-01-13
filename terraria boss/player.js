@@ -358,6 +358,10 @@ class Player {
               beamY += 0.5;
               spriteAttack += 5;
               if (beamW > 2000) {
+                push();
+                fill(0);
+                circle(beamX, beamY, 100);
+                pop();
                 bossAttack = 0;
                 framee = 0;
                 spriteAttack = 0;
@@ -367,7 +371,7 @@ class Player {
                 bossSpawn = true;
                 beamY = 105;
                 beamH = 200;
-                beamW = 10;
+                beamW = 0;
                 ballBlow = false;
                 attack = true;
               }
@@ -439,22 +443,40 @@ class Player {
         immFrames = true;
         lives -= 1;
       }
-      if (this.x >= bombX - bombW / 2 && this.x <= bombX + bombW / 2 && this.y >= bombY - bombH / 2) {
+      if (this.x >= bombX - bombW / 2 && this.x <= bombX + bombW / 2 && this.y >= bombY - bombH / 3) {
+        print("hiiii");
+        immFrames = true;
+        lives -= 1;
+      }
+      if (this.x <= beamW && this.y > brolyY - 85 && this.y < brolyY + 85) {
         print("hiiii");
         immFrames = true;
         lives -= 1;
       }
     }
-    if (immFrames === true){
+    if (immFrames === true) {
       cooldown += 1;
       print(cooldown);
-      if (cooldown === 150){
+      if (cooldown === 150) {
         immFrames = false;
         cooldown = 0;
       }
     }
-    if (lives === 0){
-      print("you died")
+  }
+  loss() {
+    if (lives === 0) {
+      lose = true;
+
+      if (lose === true) {
+        print("loser")
+        push();
+        textSize(200);
+        textAlign(CENTER);
+        text("YOU LOSE",width/2,height/2);
+        pop();
+        
+
+      }
     }
   }
 }

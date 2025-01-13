@@ -60,10 +60,11 @@ let gokuDir = 1;
 let immFrames = false;
 let cooldown = 0;
 let lives = 3;
+let lose = false
 function setup() {
-  player = new Player(x,y);
+  player = new Player(x, y);
   backGround = loadImage("assets/giphy.webp");
-  for (let i = 0; i < 19; i ++){
+  for (let i = 0; i < 19; i++) {
     goku.push(loadImage("assets/gokubase" + i + ".png"));
   }
   for (let i = 0; i < 50; i++) {
@@ -77,9 +78,9 @@ function setup() {
   // }
   beam = loadImage("assets/brolyBasessjBeam0.png");
   brolyExplosion = loadImage("assets/brolyExplode2.png");
-  vyke = loadImage("assets/25b38ek4hu191.jpg");
-  archer = loadImage("assets/archer.jpg");
-  mage = loadImage("assets/mage.jpg_large");
+  vyke = loadImage("assets/easy.jpg");
+  archer = loadImage("assets/ssj.webp");
+  mage = loadImage("assets/prowler.webp");
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
   rectMode(CENTER);
@@ -89,15 +90,17 @@ function setup() {
 
 function draw() {
   background(backGround);
-  backgroundTitle();
+  if (lose === false) {
+    backgroundTitle();
 
-  drawTitleScreen();
-  pressStart();
-  selectCharacter();
-  player.move();
-  player.boss();
-  player.hitbox();
-  
+    drawTitleScreen();
+    pressStart();
+    selectCharacter();
+    player.move();
+    player.boss();
+    player.hitbox();
+  }
+  player.loss();
 }
 
 
@@ -110,6 +113,8 @@ function drawTitleScreen() {
     textAlign(CENTER);
     textSize(textySize);
     rotate(rotateUpDown);
+    fill(colourly, 155, 0)
+    text("Broly's Onslaught", 5, 5);
     fill(colourly, 255, 0);
     text("Broly's Onslaught", 0, 0);
     framee += 1;
@@ -183,11 +188,11 @@ function backgroundTitle() {
       translate(bgX * i * 5, bgY * i * 5);
       rotate(315);
       rectMode(CENTER);
-      fill(67, 117, 202);
+      fill(0, 117, 202);
       rect(bgX - 30, bgY - 30, 10000, 20);
       rect(bgX + 30, bgY + 30, 10000, 20);
-      fill("steelblue");
-      rect(bgX - 40, bgY - 40, 10000, 20);
+      fill(45, 85, 205);
+      //rect(bgX - 40, bgY - 40, 10000, 20);
       rect(bgX + 40, bgY + 40, 10000, 20);
       fill('royalblue');
       rect(bgX, bgY, 10000, 50);
@@ -258,14 +263,90 @@ function pressStart() {
 
 
 function mousePressed() {
+  if (lose === true) {
+    title = true;
+    titleScreen = false;
+    startScreen = true;
+    characterSelect = false;
+    gameStart = false;
+    bgX = 50;
+    bgY = 50;
+    sizee = 0;
+    framee = 0;
+    rotatee = 0;
+    rotateUpDown = -20;
+    textySize = 100;
+    colourly = 255;
+    colour1 = 0;
+    backGround;
+    x = 0;
+    y = 0;
+    b = 1;
+    f = 1;
+    spriteBroly = 0;
+    bossSpawn = true;
+    startAttack0 = false;
+    bossAttack = 0;
+    brolyX = 0;
+    brolyY = 0;
+    brolyD = 0;
+    attackNumber = 0;
+    spriteAttack = 0;
+    bomb = 0;
+    ballW = 100;
+    ballH = 100;
+    ballX = 50;
+    ballY = 50;
+    ballBlow = false;
+    brolyExplosion;
+    bombW = 0;
+    bombH = 0;
+    bombX;
+    bombY;
+    beam;
+    beamX = 30;
+    beamY = 105;
+    beamH = 200;
+    beamW = 10;
+    player;
+    attack = true;
+    spriteGoku = 11;
+    gokuFrame = 0;
+    gokuDir = 1;
+    immFrames = false;
+    cooldown = 0;
+    lives = 3;
+    lose = false;
+  }
   if (characterSelect === true && mouseX > width / 4 - 125 && mouseX < width / 4 + 125 && mouseY > height / 2 - 250 && mouseY < height / 2 + 250) {
     characterSelect = false;
     startScreen = false;
     titleScreen = false;
     title = false;
     gameStart = true;
+    lives = 3;
     backGround = loadImage("assets/brolyBackground.webp");
 
+
+  }
+  if (characterSelect === true && mouseX > width / 2 - 125 && mouseX < width / 2 + 125 && mouseY > height / 2 - 250 && mouseY < height / 2 + 250) {
+    characterSelect = false;
+    startScreen = false;
+    titleScreen = false;
+    title = false;
+    gameStart = true;
+    backGround = loadImage("assets/brolyBackground.webp");
+    lives = 2;
+
+  }
+  if (characterSelect === true && mouseX > width / 1.5 - 125 && mouseX < width / 1.5 + 250 && mouseY > height / 2 - 250 && mouseY < height / 2 + 250) {
+    characterSelect = false;
+    startScreen = false;
+    titleScreen = false;
+    title = false;
+    gameStart = true;
+    backGround = loadImage("assets/brolyBackground.webp");
+    lives = 1;
 
   }
   if (titleScreen === true && mouseX > width / 2 - 200 && mouseX < width / 2 + 200 && mouseY > height / 2 - 100 && mouseY < height / 2 + 100) {
@@ -293,21 +374,21 @@ function selectCharacter() {
         image(vyke, width / 4 * i, height / 1.8, 240, 490);
         rect(width / 4 * i, height / 1.8 - 250, 100, 50);
         fill(255);
-        text("Knight", width / 4 * i, height / 1.8 - 240);
+        text("Easy", width / 4 * i, height / 1.8 - 240);
       }
       if (i === 2) {
         imageMode(CENTER);
         image(archer, width / 4 * i, height / 1.8, 240, 490);
         rect(width / 4 * i, height / 1.8 - 250, 100, 50);
         fill(255);
-        text("Archer", width / 4 * i, height / 1.8 - 240);
+        text("Normal", width / 4 * i, height / 1.8 - 240);
       }
       if (i === 3) {
         imageMode(CENTER);
         image(mage, width / 4 * i, height / 1.8, 240, 490);
         rect(width / 4 * i, height / 1.8 - 250, 100, 50);
         fill(255);
-        text("Mage", width / 4 * i, height / 1.8 - 240);
+        text("Hard", width / 4 * i, height / 1.8 - 240);
       }
       pop();
     }
