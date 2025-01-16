@@ -60,14 +60,20 @@ let gokuDir = 1;
 let immFrames = false;
 let cooldown = 0;
 let lives = 3;
-let lose = false
+let lose = false;
+let attacks = 0;
+let heart;
+let blast = [];
 function setup() {
   player = new Player(x, y);
   backGround = loadImage("assets/giphy.webp");
+  for (let i = 0; i < 3; i ++){
+    blast.push(loadImage("assets/brolyblast" + i + ".png"));
+  }
   for (let i = 0; i < 19; i++) {
     goku.push(loadImage("assets/gokubase" + i + ".png"));
   }
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 51; i++) {
     broly.push(loadImage("assets/brolyBasessj" + i + ".png"));
   }
   for (let i = 0; i < 2; i++) {
@@ -76,6 +82,7 @@ function setup() {
   // for (let i = 0; i < 2; i++) {
   //   beam.push(loadImage("assets/brolyBasessjBeam" + i + ".png"));
   // }
+  heart = loadImage("assets/heart.webp");
   beam = loadImage("assets/brolyBasessjBeam0.png");
   brolyExplosion = loadImage("assets/brolyExplode2.png");
   vyke = loadImage("assets/easy.jpg");
@@ -105,6 +112,12 @@ function draw() {
 
 
 function drawTitleScreen() {
+  //colourly is to make the title slowly change colours
+  //framee is to make each action go by a different frame, eg each action goes on frame 4 instead of every frame
+  //textySize is the size of the text, helping it grow and shrink
+  //rotateUpDown makes the title move up and down
+  //sizee and colour1 are addons to other variables
+
   if (title === true) {
     push();
     stroke(0);
@@ -113,10 +126,10 @@ function drawTitleScreen() {
     textAlign(CENTER);
     textSize(textySize);
     rotate(rotateUpDown);
-    fill(colourly, 155, 0)
-    text("Broly's Onslaught", 5, 5);
+    fill(colourly, 205, 0);
+    text("Broly Blast Clash", 5, 5);
     fill(colourly, 255, 0);
-    text("Broly's Onslaught", 0, 0);
+    text("Broly Blast Clash", 0, 0);
     framee += 1;
     //print(framee);
     if (framee === 4) {
@@ -264,6 +277,8 @@ function pressStart() {
 
 function mousePressed() {
   if (lose === true) {
+    backGround = loadImage("assets/giphy.webp");
+    attacks = 0;
     title = true;
     titleScreen = false;
     startScreen = true;

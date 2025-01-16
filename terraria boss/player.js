@@ -12,6 +12,18 @@ class Player {
     push();
     imageMode(CENTER);
     if (gameStart === true) {
+      if (lives === 3) {
+        image(heart, 50, 0 + 50, 50, 50);
+        image(heart, 100, 0 + 50, 50, 50);
+        image(heart, 150, 0 + 50, 50, 50);
+      }
+      if (lives === 2) {
+        image(heart, 50, 0 + 50, 50, 50);
+        image(heart, 100, 0 + 50, 50, 50);
+      }
+      if (lives === 1) {
+        image(heart, 50, 0 + 50, 50, 50);
+      }
       if (f === 1) {
         //print(x, y);
         this.x = width / 2;
@@ -33,7 +45,7 @@ class Player {
       }
       push();
       imageMode(CENTER);
-      image(goku[spriteGoku], this.x, this.y, 80, 120);
+      image(goku[spriteGoku], this.x, this.y, 60, 90);
       pop();
       if (keyIsDown() === false) {
         if (gokuDir === 2) {
@@ -263,8 +275,8 @@ class Player {
                   framee = 0;
                   spriteAttack = 0;
                   attackNumber = 0;
-                  spriteBroly = 9;
-                  startAttack0 = false;
+                  //spriteBroly = 9;
+                  //startAttack0 = false;
                   bossSpawn = true;
                   ballX = 50;
                   ballY = 50;
@@ -284,8 +296,8 @@ class Player {
               framee = 0;
               spriteAttack = 0;
               attackNumber = 0;
-              spriteBroly = 9;
-              startAttack0 = false;
+              //spriteBroly = 9;
+              //startAttack0 = false;
               bossSpawn = true;
               ballX = 50;
               ballY = 50;
@@ -297,6 +309,7 @@ class Player {
               bombY = 10000000;
               ballBlow = false;
               attack = true;
+              attacks += 1;
             }
           }
         }
@@ -366,14 +379,15 @@ class Player {
                 framee = 0;
                 spriteAttack = 0;
                 attackNumber = 0;
-                spriteBroly = 9;
-                startAttack0 = false;
+                //spriteBroly = 9;
+                //startAttack0 = false;
                 bossSpawn = true;
                 beamY = 105;
                 beamH = 200;
                 beamW = 0;
                 ballBlow = false;
                 attack = true;
+                attacks += 1;
               }
 
 
@@ -425,13 +439,37 @@ class Player {
               framee = 0;
               spriteAttack = 0;
               attackNumber = 0;
-              spriteBroly = 9;
-              startAttack0 = false;
+              //spriteBroly = 9;
+              //startAttack0 = false;
               bossSpawn = true;
               attack = true;
+              attacks += 1;
             }
           }
         }
+        // if (bossAttack === 4) {
+        //   if (attackNumber === 0) {
+        //     if (framee === 10) {
+        //       spriteBroly = 0;
+        //     }
+        //     if (framee === 15) {
+        //       brolyX = width - 200;
+        //       brolyY = height / 2;
+        //     }
+        //     if (framee === 20) {
+        //       spriteBroly = 50;
+        //       attackNumber = 1;
+        //       framee = 0;
+        //     }
+
+        //   }
+        //   if (attackNumber === 1) {
+        //     if (framee === spriteAttack * 5) {
+        //       spriteAttack += 1
+        //       image()
+        //     }
+        //   }
+        // }
       }
       framee += 1;
     }
@@ -443,7 +481,7 @@ class Player {
         immFrames = true;
         lives -= 1;
       }
-      if (this.x >= bombX - bombW / 2 && this.x <= bombX + bombW / 2 && this.y >= bombY - bombH / 3) {
+      if (this.x >= bombX - bombW / 4 && this.x <= bombX + bombW / 4 && this.y >= bombY - bombH / 3) {
         print("hiiii");
         immFrames = true;
         lives -= 1;
@@ -468,13 +506,17 @@ class Player {
       lose = true;
 
       if (lose === true) {
-        print("loser")
+        print("loser");
         push();
         textSize(200);
         textAlign(CENTER);
-        text("YOU LOSE",width/2,height/2);
+        text("YOU LOSE", width / 2, height / 2);
         pop();
-        
+        push();
+        textSize(50);
+        textAlign(CENTER);
+        text("survived " + attacks + " rounds", width / 2, height / 2 - 300);
+
 
       }
     }
